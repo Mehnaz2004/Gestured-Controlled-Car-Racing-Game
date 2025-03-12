@@ -1,0 +1,8 @@
+{
+    "Open Palm": { "right": "w", "left": "e" },
+    "Fist": { "right": "s", "left": "f" },
+    "Open Palm Tilted Left": { "right": "x", "left": "d" },
+    "Open Palm Tilted Right": { "right": "c", "left": "a" },
+    "Victory": { "right": "esc", "left": "b" },
+    "Three Fingers Up": { "right": "h", "left": "n" }
+}

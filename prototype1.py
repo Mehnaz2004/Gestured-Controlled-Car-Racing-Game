@@ -1,93 +1,133 @@
 import cv2
 import mediapipe as mp
-import keyboard  # Simulating key presses
+import keyboard  # For simulating key presses
+import json
+import os
 
-# Initialize Mediapipe Hand module
+MAPPING_FILE = "gesture_mappings.json"
+
+
+def load_gesture_mappings():
+    """Loads the gesture-key mappings from a JSON file."""
+    if os.path.exists(MAPPING_FILE):
+        with open(MAPPING_FILE, "r") as f:
+            return json.load(f)
+    else:
+        default_mapping = {
+            "Open Palm": {"right": "w", "left": "e"},
+            "Fist": {"right": "s", "left": "f"},
+            "Open Palm Tilted Left": {"right": "c", "left": "d"},
+            "Open Palm Tilted Right": {"right": "x", "left": "a"},
+            "Victory": {"right": "v", "left": "b"},
+            "Three Fingers Up": {"right": "h", "left": "n"}
+        }
+        with open(MAPPING_FILE, "w") as f:
+            json.dump(default_mapping, f, indent=4)
+        return default_mapping
+    
+
+# Gesture to Key Mapping
+GESTURE_KEY_MAPPING = load_gesture_mappings()
+
+# Track the active key for each hand
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_confidence=0.7)
 
-# Gesture to Key Mapping for both hands
-GESTURE_KEY_MAPPING = {
-    "Open Palm": {"right": "w", "left": "e"},  # Move Forward
-    "Fist": {"right": "s", "left": "f"},  # Brake / Power-up
-    "Pointing Right": {"right": "d", "left": "c"},  # Turn Right / Power-up
-    "Pointing Left": {"right": "a", "left": "x"},  # Turn Left / Power-up
-}
+active_keys = {"right": None, "left": None}
+
 
 def recognize_gesture(hand_landmarks):
     """
-    Recognizes a simple hand gesture based on finger positions.
+    Recognizes a hand gesture based on finger positions.
     """
     landmarks = hand_landmarks.landmark
 
-    # Get Y-coordinates of fingertips and base joints
     fingers = []
-    tips = [8, 12, 16, 20]  # Index, Middle, Ring, Pinky fingertips
+    tips = [8, 12, 16, 20]  # Index, Middle, Ring, Pinky fingertip indices
     for tip in tips:
-        fingers.append(1 if landmarks[tip].y < landmarks[tip - 2].y else 0)  # Finger is up or down
+        if landmarks[tip].y < landmarks[tip - 2].y:  # Fingertip above its base
+            fingers.append(1)  # Finger is up
+        else:
+            fingers.append(0)  # Finger is down
 
-    # Check for specific gestures
-    index_pointing_right = fingers == [1, 0, 0, 0] and landmarks[8].x > landmarks[6].x
-    index_pointing_left = fingers == [1, 0, 0, 0] and landmarks[8].x < landmarks[6].x
+    # Hand tilt detection using wrist and finger base positions
+    wrist_x = landmarks[0].x
+    middle_base_x = landmarks[9].x  # Base of middle finger
+    tilt_threshold = 0.05  # Minimum required tilt to classify as tilted
 
-    if fingers == [1, 1, 1, 1]:  # All fingers up
+    # Gesture Conditions
+    if fingers == [1, 1, 0, 0]:
+        return "Victory"
+    elif fingers == [1, 1, 1, 0]:
+        return "Three Fingers Up"
+    elif fingers == [1, 1, 1, 1]:
+        # Detect significant left or right tilt
+        if wrist_x < middle_base_x - tilt_threshold:
+            return "Open Palm Tilted Left"  # Palm tilted left
+        elif wrist_x > middle_base_x + tilt_threshold:
+            return "Open Palm Tilted Right"  # Palm tilted right
         return "Open Palm"
-    elif fingers == [0, 0, 0, 0]:  # All fingers down
+    elif fingers == [0, 0, 0, 0]:
         return "Fist"
-    elif index_pointing_right:  # Index finger pointing right
-        return "Pointing Right"
-    elif index_pointing_left:  # Index finger pointing left
-        return "Pointing Left"
 
-    return "Unknown Gesture"
+    return None  # No recognized gesture
+
 
 # Start webcam
 cap = cv2.VideoCapture(0)
-
-active_keys = set()  # Track currently pressed keys
 
 while cap.isOpened():
     ret, frame = cap.read()
     if not ret:
         break
 
-    frame = cv2.flip(frame, 1)  # Flip for natural interaction
+    frame = cv2.flip(frame, 1)
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
     result = hands.process(rgb_frame)
 
-    detected_keys = set()  # Keys detected from gestures
+    detected_keys = {"right": None, "left": None}
 
     if result.multi_hand_landmarks and result.multi_handedness:
-        for i, hand_landmarks in enumerate(result.multi_hand_landmarks):
-            handedness = result.multi_handedness[i].classification[0].label.lower()  # 'Left' or 'Right'
+        for hand_landmarks, handedness_info in zip(result.multi_hand_landmarks, result.multi_handedness):
             mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
+            handedness = "left" if handedness_info.classification[0].label.lower() == "left" else "right"
             gesture = recognize_gesture(hand_landmarks)
-            if gesture in GESTURE_KEY_MAPPING and GESTURE_KEY_MAPPING[gesture][handedness]:
-                detected_key = GESTURE_KEY_MAPPING[gesture][handedness]
-                detected_keys.add(detected_key)
-                cv2.putText(frame, f"{handedness.capitalize()} Hand: {gesture} -> '{detected_key.upper()}'", (10, 50 + i * 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
-    # Handle key presses and releases
-    for key in detected_keys:
-        if key not in active_keys:
-            keyboard.press(key)  # Press new keys
+            if gesture and gesture in GESTURE_KEY_MAPPING:
+                detected_keys[handedness] = GESTURE_KEY_MAPPING[gesture][handedness]
 
-    for key in active_keys - detected_keys:
-        keyboard.release(key)  # Release keys no longer detected
+    # Handle key presses and releases using your logic
+    for hand in ["right", "left"]:
+        detected_key = detected_keys[hand]
+        active_key = active_keys[hand]
 
-    active_keys = detected_keys  # Update active keys
+        if detected_key and detected_key != active_key:
+            if active_key:
+                keyboard.release(active_key)  # Release previous key
+            keyboard.press(detected_key)  # Hold new key
+            active_keys[hand] = detected_key
+
+        elif not detected_key and active_key:
+            keyboard.release(active_key)  # Release the key if no valid gesture
+            active_keys[hand] = None
+
+    # Display gesture information
+    for i, (hand, key) in enumerate(detected_keys.items()):
+        text = f"{hand.capitalize()} Hand: {'Holding ' + key.upper() if key else 'No Gesture'}"
+        cv2.putText(frame, text, (10, 50 + i * 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
     cv2.imshow("Hand Gesture Game Control", frame)
 
     if cv2.waitKey(10) & 0xFF == 27:  # Press 'ESC' to exit
         break
 
-# Release all active keys before exiting
-for key in active_keys:
-    keyboard.release(key)
+# Release any active keys before exiting
+for key in active_keys.values():
+    if key:
+        keyboard.release(key)
 
 cap.release()
 cv2.destroyAllWindows()

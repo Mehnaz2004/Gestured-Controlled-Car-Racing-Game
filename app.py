@@ -30,10 +30,10 @@ DEFAULT_FUNCTIONS = {
 
 # Function key bindings for both hands
 KEY_BINDINGS = {
-    "Accelerate": {"right": "w", "left": "e"},
-    "Brakes": {"right": "s", "left": "f"},
-    "Left": {"right": "d", "left": "x"},
-    "Right": {"right": "a", "left": "c"}
+    "Accelerate": {"right": "w", "left": "w"},
+    "Brakes": {"right": "s", "left": "s"},
+    "Left": {"right": "d", "left": "d"},
+    "Right": {"right": "a", "left": "a"}
 }
 
 def update_gesture_mappings(new_mappings):

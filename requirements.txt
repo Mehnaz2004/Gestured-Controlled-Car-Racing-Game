@@ -1,0 +1,8 @@
+Flask==3.0.0
+numpy==1.26.4
+opencv-python==4.9.0.80
+mediapipe==0.10.9
+jsonschema==4.21.1
+pandas==2.2.1
+gunicorn==21.2.0
+requests==2.31.0

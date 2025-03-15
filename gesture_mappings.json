@@ -1,19 +1,19 @@
 {
     "Open Palm": {
         "right": "w",
-        "left": "e"
+        "left": "w"
     },
     "Fist": {
         "right": "s",
-        "left": "f"
+        "left": "s"
     },
     "Open Palm Tilted Left": {
         "right": "d",
-        "left": "x"
+        "left": "d"
     },
     "Open Palm Tilted Right": {
         "right": "a",
-        "left": "c"
+        "left": "a"
     },
     "Victory": {
         "right": "esc",

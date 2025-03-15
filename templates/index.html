@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gesture-Controlled Car Racing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <h1>Gesture-Controlled Car Racing - Gesture Mapping</h1>
+
+    <table>
+        <tr>
+            <th>Function</th>
+            <th>Select Gesture</th>
+        </tr>
+        {% for function, default_gesture in functions.items() %}
+        <tr>
+            <td>{{ function }}</td>
+            <td>
+                <select class="gesture-select" data-function="{{ function }}">
+                    {% for gesture in gestures %}
+                        <option value="{{ gesture }}" {% if gesture == default_gesture %}selected{% endif %}>{{ gesture }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="btn-container">
+        <button id="save-btn">Save</button>
+        <button id="run-btn">Run</button>
+        <button id="exit-btn">Exit</button>
+    </div>
+
+    <p id="message" class="message"></p>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

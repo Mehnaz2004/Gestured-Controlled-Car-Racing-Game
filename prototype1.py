@@ -3,28 +3,38 @@ import mediapipe as mp
 import keyboard  # For simulating key presses
 import json
 import os
+from pymongo import MongoClient
 
 MAPPING_FILE = "gesture_mappings.json"
 
 
 def load_gesture_mappings():
-    """Loads the gesture-key mappings from a JSON file."""
-    if os.path.exists(MAPPING_FILE):
-        with open(MAPPING_FILE, "r") as f:
-            return json.load(f)
+    """Loads the gesture-key mappings from MongoDB."""
+    client = MongoClient("mongodb+srv://Boomer:Boomer2004@cluster0.yp7ed.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+    db = client.gesture_controlled_car_racing_game  # Select the database
+    collection = db.gesture_mapping  # Select the collection
+
+    document = collection.find_one()  # Fetch the first document
+    if document:
+        document.pop("_id", None)  # Remove MongoDB's default `_id` field
+        return document
     else:
-        default_mapping = {
-            "Open Palm": {"right": "w", "left": "e"},
-            "Fist": {"right": "s", "left": "f"},
-            "Open Palm Tilted Left": {"right": "c", "left": "d"},
-            "Open Palm Tilted Right": {"right": "x", "left": "a"},
-            "Victory": {"right": "v", "left": "b"},
-            "Three Fingers Up": {"right": "h", "left": "n"}
-        }
-        with open(MAPPING_FILE, "w") as f:
-            json.dump(default_mapping, f, indent=4)
-        return default_mapping
+        print("No gesture mapping found in MongoDB!")
+        return {}
     
+    #else:
+    #    default_mapping = {
+    #        "Open Palm": {"right": "w", "left": "e"},
+    #        "Fist": {"right": "s", "left": "f"},
+    #        "Open Palm Tilted Left": {"right": "c", "left": "d"},
+    #        "Open Palm Tilted Right": {"right": "x", "left": "a"},
+    #        "Victory": {"right": "v", "left": "b"},
+    #        "Three Fingers Up": {"right": "h", "left": "n"}
+    #    }
+    #    with open(MAPPING_FILE, "w") as f:
+    #        json.dump(default_mapping, f, indent=4)
+    #    return default_mapping
+     
 
 # Gesture to Key Mapping
 GESTURE_KEY_MAPPING = load_gesture_mappings()

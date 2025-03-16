@@ -1,26 +1,8 @@
 {
-    "Open Palm": {
-        "right": "w",
-        "left": "w"
-    },
-    "Fist": {
-        "right": "s",
-        "left": "s"
-    },
-    "Open Palm Tilted Left": {
-        "right": "d",
-        "left": "d"
-    },
-    "Open Palm Tilted Right": {
-        "right": "a",
-        "left": "a"
-    },
-    "Victory": {
-        "right": "esc",
-        "left": "b"
-    },
-    "Three Fingers Up": {
-        "right": "h",
-        "left": "n"
-    }
+    "Open Palm": {"right": "w", "left": "e"},
+    "Fist": {"right": "s", "left": "f"},
+    "Open Palm Tilted Left": {"right": "c", "left": "d"},
+    "Open Palm Tilted Right": {"right": "x", "left": "a"},
+    "Victory": {"right": "v", "left": "b"},
+    "Three Fingers Up": {"right": "h", "left": "n"}
 }

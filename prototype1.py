@@ -1,40 +1,27 @@
 import cv2
 import mediapipe as mp
 import keyboard  # For simulating key presses
-import json
-import os
+import sys
 from pymongo import MongoClient
 
-MAPPING_FILE = "gesture_mappings.json"
+if len(sys.argv) != 2:
+    print("User email argument missing.")
+    sys.exit(1)
 
+user_email = sys.argv[1]
 
 def load_gesture_mappings():
-    """Loads the gesture-key mappings from MongoDB."""
+    """Loads the gesture-key mappings from MongoDB for the current user."""
     client = MongoClient("mongodb+srv://Boomer:Boomer2004@cluster0.yp7ed.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-    db = client.gesture_controlled_car_racing_game  # Select the database
-    collection = db.gesture_mapping  # Select the collection
+    db = client.gesture_controlled_car_racing_game
+    collection = db.user_profile
 
-    document = collection.find_one()  # Fetch the first document
-    if document:
-        document.pop("_id", None)  # Remove MongoDB's default `_id` field
-        return document
+    user_data = collection.find_one({"email": user_email})
+    if user_data and "gesture_mappings" in user_data:
+        return user_data["gesture_mappings"]
     else:
-        print("No gesture mapping found in MongoDB!")
+        print("No gesture mapping found for the user!")
         return {}
-    
-    #else:
-    #    default_mapping = {
-    #        "Open Palm": {"right": "w", "left": "e"},
-    #        "Fist": {"right": "s", "left": "f"},
-    #        "Open Palm Tilted Left": {"right": "c", "left": "d"},
-    #        "Open Palm Tilted Right": {"right": "x", "left": "a"},
-    #        "Victory": {"right": "v", "left": "b"},
-    #        "Three Fingers Up": {"right": "h", "left": "n"}
-    #    }
-    #    with open(MAPPING_FILE, "w") as f:
-    #        json.dump(default_mapping, f, indent=4)
-    #    return default_mapping
-     
 
 # Gesture to Key Mapping
 GESTURE_KEY_MAPPING = load_gesture_mappings()
@@ -45,7 +32,6 @@ mp_drawing = mp.solutions.drawing_utils
 hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_confidence=0.7)
 
 active_keys = {"right": None, "left": None}
-
 
 def recognize_gesture(hand_landmarks):
     """
@@ -82,7 +68,6 @@ def recognize_gesture(hand_landmarks):
         return "Fist"
 
     return None  # No recognized gesture
-
 
 # Start webcam
 cap = cv2.VideoCapture(0)

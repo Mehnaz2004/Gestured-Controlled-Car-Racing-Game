@@ -3,10 +3,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const runButton = document.getElementById("run-button");
     const stopButton = document.getElementById("stop-button");
 
-    saveButton.addEventListener("click", saveMappings);
-    runButton.addEventListener("click", runPrototype);
-    stopButton.addEventListener("click", stopPrototype);
+    saveButton.addEventListener("click", () => handleRequest(saveMappings, saveButton));
+    runButton.addEventListener("click", () => handleRequest(runPrototype, runButton));
+    stopButton.addEventListener("click", () => handleRequest(stopPrototype, stopButton));
 });
+
+function handleRequest(action, button) {
+    button.disabled = true;
+    action().finally(() => {
+        button.disabled = false;
+    });
+}
 
 function saveMappings() {
     const mappings = {};
@@ -17,10 +24,15 @@ function saveMappings() {
         const rightKey = row.querySelector(`input[id="right_${gesture}"]`).value;
         const leftKey = row.querySelector(`input[id="left_${gesture}"]`).value;
 
+        if (!rightKey || !leftKey) {
+            alert(`Invalid input for gesture: ${gesture}`);
+            return;
+        }
+
         mappings[gesture] = { right: rightKey, left: leftKey };
     });
 
-    fetch("/update_mappings", {
+    return fetch("/update_mappings", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -35,11 +47,14 @@ function saveMappings() {
             alert(`Error: ${data.message}`);
         }
     })
-    .catch(error => console.error("Error:", error));
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Failed to save mappings.");
+    });
 }
 
 function runPrototype() {
-    fetch("/run_prototype", { method: "POST" })
+    return fetch("/run_prototype", { method: "POST" })
     .then(response => response.json())
     .then(data => {
         if (data.status === "running") {
@@ -48,11 +63,14 @@ function runPrototype() {
             alert(`Error: ${data.message}`);
         }
     })
-    .catch(error => console.error("Error:", error));
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Failed to run prototype.");
+    });
 }
 
 function stopPrototype() {
-    fetch("/stop_prototype", { method: "POST" })
+    return fetch("/stop_prototype", { method: "POST" })
     .then(response => response.json())
     .then(data => {
         if (data.status === "stopped") {
@@ -61,5 +79,8 @@ function stopPrototype() {
             alert(`Error: ${data.message}`);
         }
     })
-    .catch(error => console.error("Error:", error));
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Failed to stop prototype.");
+    });
 }

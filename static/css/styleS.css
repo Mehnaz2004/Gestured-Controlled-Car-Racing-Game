@@ -1,43 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #e6f7ff;
+    display: flex;
+    justify-content: center; /* Horizontally centers */
+    align-items: center; /* Vertically centers */
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
     margin: 0;
     padding: 0;
+    background: linear-gradient(135deg, #0d0d1a, #1a0026);
+    color: white;
+}
+
+.animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/hexellence.png') repeat;
+    opacity: 0.2;
+    animation: moveBackground 10s linear infinite;
+    z-index: -1; /* Ensures it stays behind all content */
+}
+
+@keyframes moveBackground {
+    0% { background-position: 0 0; }
+    100% { background-position: 100px 100px; }
+}
+
+
+/* Main container */
+.container {
+    width: 75%;
+    margin: 9%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: stretch;
+    background: rgba(18, 18, 30, 1);
+    box-shadow: 0 0 15px #00ffcc;
+    overflow: hidden;
+    animation: glitch 10s infinite;
 }
 
-form {
-    background-color: white;
-    padding: 20px 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.text-section {
+    padding-right: 40px;
+    flex: 1;
+    clip-path: polygon(16% 0%, 100% 0%, 92% 100%, 5% 100%);
+    background: rgba(98, 0, 234, 0.3);
+    color: #ffffff;
+    text-align: right;
 }
 
-input[type="email"], input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+/* Form Section (Left Parallelogram) */
+.form-section {
+    flex: 1;
+    clip-path: polygon(9% 0, 100% 0, 88% 100%, 0 100%);
+    background: rgba(12, 12, 22, 0.9);
+    text-align: center;
 }
 
+.text-section, .form-section{
+    margin-left:-5%;
+    margin-right:-5%;
+}
+
+/* Input Fields */
+input {
+    margin: 20px 0;
+    padding: 15px;
+    width: 50%;
+    font-size: 23px;
+    text-align: center;
+    color: #0ff;
+    background: rgba(0, 255, 255, 0.1);
+    outline: none;
+    
+    /* Applying the same holographic panel effect */
+    box-shadow: 0 0 10px #00ffcc;
+    border: 2px solid rgba(0, 255, 204, 0.5);
+    
+    transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+/* Holographic Glow Effect on Focus */
+input:focus {
+    box-shadow: 0 0 25px #00ffff;
+    border: 2px solid rgba(0, 255, 255, 0.8);
+}
+/* Buttons */
 button {
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745;
+    margin:10px;
+    padding: 15px 35px;
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 25px; /* Reduced from 48px */
+    box-shadow: 0 0 15px #6200ea;
+    transition: 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #bb86fc;
+    box-shadow: 0 0 25px  #00ffcc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .form-section, .text-section {
+        clip-path: none;
+    }
+}
+
+.text-section h2,
+.text-section p {
+    padding-right:80px;
+    padding-left:140px;
+}
+
+.form-section h2{
+    font-size: 50px;
+}
+
+.form-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@keyframes glitch {
+    0% { text-shadow: 3px 3px 0px #ff00ff, -3px -3px 0px #00ffff; }
+    1% { text-shadow: -3px -3px 0px #ff00ff, 3px 3px 0px #00ffff; }
+    2% { text-shadow: 3px -3px 0px #ff00ff, -3px 3px 0px #00ffff; }
+    3% { text-shadow: -3px 3px 0px #ff00ff, 3px -3px 0px #00ffff; }
+    4% { text-shadow: 3px 3px 0px #ff00ff, -3px -3px 0px #00ffff; }
+    5% { text-shadow: -3px -3px 0px #ff00ff, 3px 3px 0px #00ffff; }
+    6% { text-shadow: none; }
+    100% { text-shadow: none; }
+}
+
+.text-section h2 {
+    font-size: 317%;
+    color: white;
+}
+
+
+.text-section p{
+    font-size: 120%;
+}
+
+/* Custom Sci-Fi Alert Box */
+.custom-alert {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: rgba(18, 18, 30, 1);
+    color: #00ffcc;
+    padding: 20px;
+    border: 3px solid #00ffcc;
+    box-shadow: 0 0 20px #00ffcc;
+    text-align: center;
+    z-index: 1000;
+    width: 320px;
+    border-radius: 10px;
+    
+    /* Custom Sci-Fi Polygon Shape */
+    clip-path: polygon(0% 20%, 10% 10%, 90% 10%, 100% 20%, 100% 80%, 90% 90%, 10% 90%, 0% 80%);
+    
+    /* Animation */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Show Alert Animation */
+.custom-alert.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.custom-alert button {
+    margin-top: 15px;
+    padding: 10px 25px;
+    background: #6200ea;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 0 10px #6200ea;
+    transition: 0.3s ease-in-out;
 }
 
-button:hover {
-    background-color: #218838;
+.custom-alert button:hover {
+    background: #bb86fc;
+    box-shadow: 0 0 20px #00ffcc;
 }
 
-p {
-    text-align: center;
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .form-section, .text-section {
+        clip-path: none;
+    }
 }

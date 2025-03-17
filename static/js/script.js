@@ -25,7 +25,7 @@ function saveMappings() {
         const leftKey = row.querySelector(`input[id="left_${gesture}"]`).value;
 
         if (!rightKey || !leftKey) {
-            alert(`Invalid input for gesture: ${gesture}`);
+            showAlert(`Invalid input for gesture: ${gesture}`);
             return;
         }
 
@@ -42,14 +42,14 @@ function saveMappings() {
     .then(response => response.json())
     .then(data => {
         if (data.status === "success") {
-            alert("Mappings updated successfully!");
+            showAlert("Mappings updated successfully!");
         } else {
-            alert(`Error: ${data.message}`);
+            showAlert(`Error: ${data.message}`);
         }
     })
     .catch(error => {
         console.error("Error:", error);
-        alert("Failed to save mappings.");
+        showAlert("Failed to save mappings.");
     });
 }
 
@@ -58,14 +58,14 @@ function runPrototype() {
     .then(response => response.json())
     .then(data => {
         if (data.status === "running") {
-            alert("Prototype running...");
+            showAlert("Click Ok to start the program!");
         } else {
-            alert(`Error: ${data.message}`);
+            showAlert(`Error: ${data.message}`);
         }
     })
     .catch(error => {
         console.error("Error:", error);
-        alert("Failed to run prototype.");
+        showAlert("Failed to run prototype.");
     });
 }
 
@@ -74,13 +74,33 @@ function stopPrototype() {
     .then(response => response.json())
     .then(data => {
         if (data.status === "stopped") {
-            alert("Prototype stopped.");
+            showAlert("Prototype stopped.");
         } else {
-            alert(`Error: ${data.message}`);
+            showAlert(`Error: ${data.message}`);
         }
     })
     .catch(error => {
         console.error("Error:", error);
-        alert("Failed to stop prototype.");
+        showAlert("Failed to stop prototype.");
     });
+}
+
+function showAlert(message) {
+    const alertBox = document.getElementById("custom-alert");
+    const alertMessage = document.getElementById("alert-message");
+    const alertOk = document.getElementById("alert-ok");
+
+    alertMessage.textContent = message;
+    alertBox.classList.remove("hide");
+    alertBox.classList.add("show");
+
+    alertOk.onclick = () => {
+        alertBox.classList.remove("show");
+        alertBox.classList.add("hide");
+
+        // Ensure it stays hidden after animation ends
+        setTimeout(() => {
+            alertBox.classList.remove("hide");
+        }, 300);
+    };
 }

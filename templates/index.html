@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Gesture Mapping Panel</h1>
+    <div class="animated-bg"></div> <!-- Background outside all elements -->
+
+    <h1 class="glitch" data-text="Gesture Mapping Panel">Gesture Mapping Panel</h1>
+
     <table>
         <thead>
             <tr>
@@ -26,11 +29,18 @@
             {% endfor %}
         </tbody>
     </table>
-    
-    <button id="save-button">Save Mappings</button>
-    <button id="run-button">Run Prototype</button>
-    <button id="stop-button">Stop Prototype</button>
-    <a href="/logout"><button>Logout</button></a>
+
+    <div class="button-container">
+        <button class="neon-button" id="save-button">Save Mappings</button>
+        <button class="neon-button" id="run-button">Run Prototype</button>
+        <button class="neon-button" id="stop-button">Stop Prototype</button>
+        <a href="/logout"><button class="neon-button">Logout</button></a>
+    </div>
+
+    <div id="custom-alert" class="custom-alert hidden">
+        <p id="alert-message"></p>
+        <button id="alert-ok">OK</button>
+    </div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>

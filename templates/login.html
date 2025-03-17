@@ -7,16 +7,29 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styleL.css') }}">
 </head>
 <body>
-    <h1>Login</h1>
-    <form method="post" action="/login">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
-        <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="/signup">Sign up here</a>.</p>
-    <script src="{{ url_for('static', filename='js/scriptL.js') }}"></script>
+    <div class="animated-bg"></div>
+    <div class="container">
+        <div class="text-section">
+            <h2>Welcome to Gesture Controlled Gaming</h2>
+            <p>Log in to continue your adventure!</p>
+        </div>
+        <div class="form-section">
+            <h2>Login</h2>
+            <form id="loginForm" action="{{ url_for('login') }}" method="POST">
+                <input type="email" id="email" name="email" placeholder="Enter Email" required>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="/signup">Sign up here</a>.</p>
+        </div>
+    </div>
 
+    <!-- Custom Sci-Fi Alert Box -->
+    <div id="customAlert" class="custom-alert">
+        <p id="alertMessage"></p>
+        <button id="alertOkButton">OK</button>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/scriptL.js') }}"></script>
 </body>
 </html>

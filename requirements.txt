@@ -8,3 +8,4 @@ gunicorn
 requests
 pymongo
 bcrypt
+keyboard

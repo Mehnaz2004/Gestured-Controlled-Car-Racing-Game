@@ -109,4 +109,4 @@ def stop_prototype():
     return jsonify({'status': 'error', 'message': 'No process running'}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=10000)

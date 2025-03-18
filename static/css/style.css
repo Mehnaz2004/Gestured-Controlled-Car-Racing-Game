@@ -194,3 +194,30 @@ button:hover {
     transform: translate(-50%, -50%);
     
 }
+
+/* Force scrollbar even if content fits */
+html {
+    overflow-y: scroll;
+}
+
+/* 🚀 Sci-Fi Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(18, 18, 30, 0.9);
+    box-shadow: inset 0 0 5px #00ffcc;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #00ffcc, #6200ea);
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00ffcc;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #bb86fc, #00ffff);
+    box-shadow: 0 0 15px #00ffcc;
+}

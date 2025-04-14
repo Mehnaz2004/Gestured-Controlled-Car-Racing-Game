@@ -136,11 +136,11 @@ button:hover {
 }
 
 .text-section h2{
-    font-size: 317%;
+    font-size: 375%;
 }
 
 .text-section p{
-    font-size: 120%;
+    font-size: 180%;
 }
 
 @keyframes glitch {

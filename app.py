@@ -6,13 +6,13 @@ import bcrypt
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
 
-# Establish MongoDB connection
+# MongoDB Connection
 client = MongoClient('mongodb+srv://Boomer:Boomer2004@cluster0.yp7ed.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 db = client['gesture_controlled_car_racing_game']
 gesture_collection = db['gesture_mapping']
 user_collection = db['user_profile']
 
-# Default gesture mappings
+# Default Mappings
 default_mappings = {
     "Open Palm": {"right": "w", "left": "e"},
     "Fist": {"right": "s", "left": "f"},
@@ -22,7 +22,6 @@ default_mappings = {
     "Three Fingers Up": {"right": "h", "left": "n"}
 }
 
-# Store the process reference
 process = None
 
 @app.route('/')
@@ -70,7 +69,6 @@ def logout():
 def update_mappings():
     if 'user' not in session:
         return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
-
     data = request.json
     if data:
         user_collection.update_one(
@@ -86,11 +84,9 @@ def run_prototype():
     global process
     if 'user' not in session:
         return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
-
     if process is not None:
         process.terminate()
         process = None
-
     user_email = session['user']
     process = subprocess.Popen(['python', 'prototype1.py', user_email])
     return jsonify({'status': 'running'}), 200
@@ -100,13 +96,30 @@ def stop_prototype():
     global process
     if 'user' not in session:
         return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
-
     if process is not None:
-        process.terminate()  # Try to terminate first
-        process.wait()  # Wait for process to end
+        process.terminate()
+        process.wait()
         process = None
         return jsonify({'status': 'stopped'}), 200
     return jsonify({'status': 'error', 'message': 'No process running'}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    import threading
+    import time
+    import webbrowser
+    import requests
+    from waitress import serve
+
+    def open_browser_when_ready():
+        while True:
+            try:
+                r = requests.get("http://127.0.0.1:5000/login")
+                if r.status_code == 200:
+                    webbrowser.open("http://127.0.0.1:5000/login")
+                    break
+            except:
+                pass
+            time.sleep(1)
+
+    threading.Thread(target=open_browser_when_ready).start()
+    serve(app, host='127.0.0.1', port=5000)

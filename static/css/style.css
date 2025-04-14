@@ -76,7 +76,6 @@ body {
 table {
     font-size: 20px;
     width: 80%;
-    border-collapse: collapse;
     margin: 20px auto;
     background: rgba(18, 18, 30, 0.9);
     box-shadow: 0 0 15px #00ffcc;
@@ -94,7 +93,11 @@ thead {
 td, th {
     padding: 15px;
     border: 1px solid #00ffcc;
-    text-align: center;
+    text-align:center;
+}
+
+td img{
+    max-width: 1.7em;
 }
 
 /* 🔵 Input Fields */
@@ -109,6 +112,10 @@ input {
     border: 2px solid rgba(0, 255, 204, 0.5);
     transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
 }
+
+/* Add Media Query for Smaller Screens */
+
+
 
 input:focus {
     box-shadow: 0 0 25px #00ffff;

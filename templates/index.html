@@ -22,7 +22,12 @@
         <tbody>
             {% for gesture, mapping in gesture_mappings.items() %}
             <tr>
-                <td>{{ gesture }}</td>
+                <td>
+                    <span style="display: inline-block; vertical-align: middle; text-align: center; line-height: 1.5;">
+                        {{ gesture }}
+                        <img src="{{ url_for('static', filename='images/' + gesture|lower|replace(' ', '_') + '.png') }}">
+                    </span>
+                </td>
                 <td><input type="text" id="right_{{ gesture }}" value="{{ mapping.right }}"></td>
                 <td><input type="text" id="left_{{ gesture }}" value="{{ mapping.left }}"></td>
             </tr>

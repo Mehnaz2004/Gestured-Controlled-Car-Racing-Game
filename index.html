@@ -1,209 +1,398 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GCCRG - Gesture Controlled Car Racing Game</title>
+    <title>Landing Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link href="styles.css" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="animated-bg"></div>
-    <header>
-        <div class="logo">
-            <img src="media\featureslogo.png" alt="GCCRG Logo">
+<body class="bg-gradient-to-b from-black via-purple-600 to-blue-900 text-white">
+
+    <!-- Animated Background (using Tailwind's utilities and custom animation) -->
+    <div class="fixed top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/polonez-pattern.png')] bg-repeat opacity-20 animate-moveBackground z-[-1]"></div>
+
+    <!-- Header Section -->
+    <header class="bg-transparent mt-5 m-8 px-8">
+        <div class="flex items-center justify-between md:justify-between"> <!-- Logo stays at left, navbar centered for mobile -->
+            <!-- Logo -->
+            <img src="media\featureslogo.png" alt="Logo" class="h-16">
+
+            <!-- Navbar for Desktop -->
+            <nav class="hidden md:flex space-x-8 mx-auto">
+                <a href="#home" class="text-xl group relative hover:text-indigo-200">
+                    Home<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-200 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#demo" class="text-xl group relative hover:text-indigo-200">
+                    Demo<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-200 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#features" class="text-xl group relative hover:text-indigo-200">
+                    Features<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-200 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#code" class="text-xl group relative hover:text-indigo-200">
+                    Code<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-200 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#download" class="text-xl group relative hover:text-indigo-500">
+                    Download<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contact" class="text-xl group relative hover:text-indigo-200">
+                    Contact<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-200 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </nav>
+
+            <!-- Hamburger Icon for Mobile -->
+            <div class="md:hidden relative">
+                <button class="text-white transition-transform duration-300 ease-in-out transform active:rotate-90" onclick="toggleMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <!-- Mobile Dropdown Menu with Glassmorphism and Custom Shadow -->
+                <div id="mobile-menu" class="hidden absolute top-full right-0 mt-2 w-48 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md rounded-lg z-50 transition-all duration-500 transform translate-x-20 opacity-0 shadow-[0_0_10px_rgba(0,255,153,0.5)]">
+                    <a href="#home" class="block px-4 py-2 border-b border-white/10 text-white hover:text-indigo-400 active:underline">Home</a>
+                    <a href="#demo" class="block px-4 py-2 border-b border-white/10 text-white hover:text-indigo-400 active:underline">Demo</a>
+                    <a href="#features" class="block px-4 py-2 border-b border-white/10 text-white hover:text-indigo-400 active:underline">Features</a>
+                    <a href="#code" class="block px-4 py-2 border-b border-white/10 text-white hover:text-indigo-400 active:underline">Code</a>
+                    <a href="#download" class="block px-4 py-2 border-b border-white/10 text-white hover:text-indigo-400 active:underline">Download</a>
+                    <a href="#contact" class="block px-4 py-2 border-b border-white/10 text-white hover:text-indigo-400 active:underline">Contact</a>
+                </div>
+
+            </div>
         </div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#demo">Demo</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#code">Code</a></li>
-                <li><a href="#download">Download</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
     </header>
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-left">
-                <img src="media\car.png" alt="GCCRG Game">
+
+    <!-- Hero Section -->
+    <section id= "Home" class="flex flex-col m-8 md:flex-row items-center justify-center py-10 space-y-8 md:space-y-0">
+        <!-- Text Section (Left) -->
+        <div class="w-full md:w-1/2 text-center md:text-left">
+            <h1 class="-ml-4 sm:ml-0 glitch text-5xl font-extrabold leading-tight mb-5">Welcome to Gesture-Controlled Gaming</h1>
+            <p class="poop-effect text-lg mb-5">Your journey into the world of gesture-controlled racing begins here.</p>
+            <a href="#download" class="cta-button bg-indigo-500 text-white px-6 py-4 rounded-lg text-xl">Get Started!</a>
+        </div>
+    
+        <!-- Image Section (Right) -->
+        <div class="w-full md:w-1/2">
+            <img src="media/car.png" alt="Hero Image" class="w-full h-auto rounded-lg transform scale-110">
+        </div>
+    </section>
+    
+    <section id="demo" class="flex m-8 flex-col md:flex-row items-center justify-center mt-32 pt-24 pb-20 px-8 space-y-8 md:space-y-0">
+        <!-- Video Section (Left) -->
+        <div class="w-full md:w-2/3">
+            <div class="relative">
+                <!-- Apply custom shadow with inline style -->
+                <video autoplay loop muted class="w-full h-auto rounded-lg shadow-xl" style="box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);">
+                    <source src="media\demovideo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
-            <div class="hero-right">
-                <h1 class="glitch">Welcome to GCCRG</h1>
-                <p class="poop-effect">Your journey into the world of gesture-controlled racing begins here.</p>
-                <a href="#download" class="cta-button">Get Started</a>
-            </div>
+        </div>
+    
+        <!-- Header and Subtitle Section (Right) -->
+        <div class="w-full md:w-1/3 text-center md:text-left sm: ml-10">
+            <h2 class="glitch text-5xl font-extrabold leading-tight sm: -ml-12">
+                Experience the Future of Gaming
+            </h2>
+            <p class="poop-effect text-lg mb-6 mt-8">Watch how the gesture control works in real-time with our game demo!</p>
         </div>
     </section>
 
-    <section class="demo-video" id="demo">
-        <div class="demo-content">
-            <div class="demo-left">
-                <h2 class="glitch">Experience the Future of Gaming</h2>
-                <p class="poop-effect">Watch how Gesture Control brings a new level of immersion to the game.</p>
+    <section id="features" class="features m-8 pt-20 px-8 pb-60">
+        <!-- Desktop View (Hidden on Mobile) -->
+        <div class="hidden md:block">
+            <div class="features-content">
+                <!-- Glass Wrapper for Image Only -->
+                <div class="glass-image-wrapper flex items-center justify-center">
+                    <img src="media/featureslogo.png" alt="Features Image" class="max-w-full h-auto" />
+                </div>                
+        
+                <!-- Labels Container OUTSIDE the image but visually aligned -->
+                <div class="feature-labels">
+                    <div class="label label-1">
+                    Supports All Games
+                        <span class="subtext">Works with any game that accepts keyboard inputs.</span>
+                    </div>
+                    <div class="label label-2">
+                        Webcam-Based Input
+                        <span class="subtext">No additional hardware required.</span>
+                    </div>
+                    <div class="label label-3">
+                        Cloud-Synced Gesture Mapping
+                        <span class="subtext">Save custom mappings across devices.</span>
+                    </div>
+                    <div class="label label-4">
+                        Customizable Gesture-to-Key Mapping
+                        <span class="subtext">Personalized control options.</span>
+                    </div>
+                    <div class="label label-5">
+                        Gesture-Based Controls
+                        <span class="subtext">Perform in-game actions via hand tracking.</span>
+                    </div>
+                    <div class="label label-6">
+                        Real-Time Processing
+                        <span class="subtext">Fast and responsive recognition.</span>
+                    </div>
+                </div>
+            
+                <!-- Text below -->
+                <div class="features-text">
+                    <h2 class="mt-8">Features</h2>
+                    <p class="poop-effect mt-4">Explore the cutting-edge features of our Gesture Controlled Gaming system!</p>
+                </div>                
             </div>
-            <div class="demo-right">
-                <div class="video-container">
-                    <video autoplay loop muted playsinline>
-                        <source src="media\demovideo.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+        </div>
+    
+        <!-- Mobile View (Visible only on Mobile) -->
+        <div class="md:hidden">
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-10 md:space-y-0 md:space-x-20">
+            
+                <!-- Image Section (Center) -->
+                <div class="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center overflow-hidden">
+                    <img src="media\featureslogo.png" alt="Feature Image" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="w-full md:w-1/2 space-y-6 flex flex-col items-center md:items-start">
+                    <h2 class="text-3xl font-extrabold text-center md:text-left mb-4">Features</h2>
+                    <p class="text-lg text-center md:text-left">Explore the revolutionary features that bring your gaming experience to the next level.</p>
+                
+                    <div class="grid grid-cols-2 gap-5">
+
+                        <!-- Card 1 -->
+                        <div class="w-full h-40 rounded-xl bg-white/20 backdrop-blur-lg shadow-xl flex items-center justify-center" style="box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);">
+                          <div class="text-center space-y-1 px-2">
+                            <h3 class="text-sm font-semibold">Supports All Games</h3>
+                            <p class="text-xs">Works with any game!</p>
+                          </div>
+                        </div>
+                      
+                        <!-- Card 2 -->
+                        <div class="w-full h-40 rounded-xl bg-white/20 backdrop-blur-lg shadow-xl flex items-center justify-center" style="box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);">
+                          <div class="text-center space-y-1 px-2">
+                            <h3 class="text-sm font-semibold">Webcam-Based Input</h3>
+                            <p class="text-xs">No hardware required.</p>
+                          </div>
+                        </div>
+                      
+                        <!-- Card 3 -->
+                        <div class="w-full h-40 rounded-xl bg-white/20 backdrop-blur-lg shadow-xl flex items-center justify-center" style="box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);">
+                          <div class="text-center space-y-1 px-2">
+                            <h3 class="text-sm font-semibold">Cloud-Synced Gesture Mapping</h3>
+                            <p class="text-xs">Save custom mappings across devices.</p>
+                          </div>
+                        </div>
+                      
+                        <!-- Card 4 -->
+                        <div class="w-full h-40 rounded-xl bg-white/20 backdrop-blur-lg shadow-xl flex items-center justify-center" style="box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);">
+                          <div class="text-center space-y-1 px-2">
+                            <h3 class="text-sm font-semibold">Customizable Gesture-to-Key Mapping</h3>
+                            <p class="text-xs">Personalized control options.</p>
+                          </div>
+                        </div>
+                      
+                        <!-- Card 5 -->
+                        <div class="w-full h-40 rounded-xl bg-white/20 backdrop-blur-lg shadow-xl flex items-center justify-center" style="box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);">
+                          <div class="text-center space-y-1 px-2">
+                            <h3 class="text-sm font-semibold">Gesture-Based Controls</h3>
+                            <p class="text-xs">Perform in-game actions via hand tracking.</p>
+                          </div>
+                        </div>
+                      
+                        <!-- Card 6 -->
+                        <div class="w-full h-40 rounded-xl bg-white/20 backdrop-blur-lg shadow-xl flex items-center justify-center" style="box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);">
+                          <div class="text-center space-y-1 px-2">
+                            <h3 class="text-sm font-semibold">Real-Time Processing</h3>
+                            <p class="text-xs">Fast and responsive recognition.</p>
+                          </div>
+                        </div>
+                      
+                      </div>
+                      
+                
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="features" class="features">
-        <div class="features-content">
-        <!-- Glass Wrapper for Image Only -->
-        <div class="glass-image-wrapper">
-            <img src="media/featureslogo.png" alt="Features Image" />
-        </div>
-
-        <!-- Labels Container OUTSIDE the image but visually aligned -->
-        <div class="feature-labels">
-            <div class="label label-1">
-            Supports All Games
-                <span class="subtext">Works with any game that accepts keyboard inputs.</span>
-            </div>
-            <div class="label label-2">
-            Webcam-Based Input
-              <span class="subtext">No additional hardware required.</span>
-            </div>
-            <div class="label label-3">
-              Cloud-Synced Gesture Mapping
-              <span class="subtext">Save custom mappings across devices.</span>
-            </div>
-            <div class="label label-4">
-              Customizable Gesture-to-Key Mapping
-              <span class="subtext">Personalized control options.</span>
-            </div>
-            <div class="label label-5">
-              Gesture-Based Controls
-              <span class="subtext">Perform in-game actions via hand tracking.</span>
-            </div>
-            <div class="label label-6">
-              Real-Time Processing
-              <span class="subtext">Fast and responsive recognition.</span>
-            </div>
-          </div>
-      
-          <!-- Text below -->
-          <div class="features-text">
-            <h2>Features</h2>
-            <p class="poop-effect">Explore the cutting-edge features of our Gesture Controlled Gaming system!</p>
-          </div>
-      
-        </div>
-      </section>
-
-      <section id="code" class="video-section">
-        <div class="video-container">
-          <video autoplay loop muted>
-            <source src="media\code.mp4" type="video/mp4">
+    <section id="code" class="relative mr-8 pr-8 pl-8 w-full h-[500px] overflow-hidden pb-30">
+        <!-- Code Typing Video -->
+        <video autoplay muted loop playsinline class="w-full h-full object-cover rounded-xl">
+            <source src="media\code.mp4" type="video/mp4" />
             Your browser does not support the video tag.
-          </video>
-      
-          <div class="video-hover-content">
-            <div class="glassmorphism-panel">
-              <h2 class="glitch">Check Out the Code Here</h2>
-              <a href="https://github.com/Mehnaz2004/Gestured-Controlled-Car-Racing-Game" class="cta-button">View Code</a>
+        </video>
+        <!-- Glasmorphism Overlay on Hover -->
+        <div class="absolute inset-0 flex items-center justify-center group transition-all duration-300 rounded-xl">
+            <div class="absolute inset-0 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+            <div class="opacity-0 group-hover:opacity-100 translate-y-10 group-hover:translate-y-0 transition-all duration-500 ease-in-out z-10 rounded-xl">
+                <div class="flex flex-col items-center justify-center text-center rounded-xl">
+                    <h2 class="text-white text-4xl font-semibold mb-4">Check out the code here</h2>
+                    <a href="https://github.com/Mehnaz2004/Gestured-Controlled-Car-Racing-Game" target="_blank" class="inline-block px-9 py-4 bg-[#6200ea] text-white text-[25px] rounded-[10px] shadow-[0_0_15px_#6200ea] hover:bg-[#bb86fc] hover:shadow-[0_0_25px_#00ffcc] focus:outline-none focus:shadow-[0_0_10px_2px_rgba(0,255,204,0.8)] transition-all duration-300 ease-in-out text-center no-underline m-[10px]">
+                        View on GitHub
+                    </a>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
-      
-
-<section id="download" class="download">
-    <h2 class="glitch">Let's Get Started</h2>
-    <!-- First Carousel for Installation Steps -->
-    <div class="carousel-container">
-        <div class="card">
-            <h3>Step 1: Check if Python is Installed</h3>
-            <p class="subtitle">If you don’t have Python installed, download it from the official Python installation page.</p>
-            <a href="https://www.python.org/downloads/" class="cta-button">Download Python</a>
-        </div>
-    
-        <div class="card">
-            <h3>Step 2: Install the Software</h3>
-            <p class="subtitle">Download the software package from OneDrive and extract it to a folder.</p>
-            <a href="https://github.com/Mehnaz2004/Gestured-Controlled-Car-Racing-Game/releases/download/v1.0.0/GCG_App.zip" class="cta-button">Download Software</a>
-        </div>
-    
-        <div class="card">
-            <h3>Step 3: Unzip the Files</h3>
-            <p class="subtitle">Extract the files and make sure both app.exe and prototype1.py are in the same folder.</p>
-        </div>
-    
-        <div class="card">
-            <h3>Step 4: Launch the Application</h3>
-            <p class="subtitle">Click on app.exe to run the application.</p>
-        </div>
-    </div>
-
-    <!-- Second Carousel for Setup Steps -->
-    <h2 class="glitch">Setup Steps</h2>
-
-    <div class="carousel-container">
-        <div class="card">
-            <img src="media\login.png" alt="Setup 1" class="card-img">
-          <h3>Step 1: Login or Signup</h3>
-          <p>Login or create an account to begin using the application.</p>
-        </div>
-    
-        <div class="card">
-            <img src="media\save_mappings.png" alt="Setup 2" class="card-img">
-          <h3>Step 2: Save Your Gesture Mappings</h3>
-          <p>Save your custom gesture mappings or use the default ones.</p>
-        </div>
-    
-        <div class="card">
-            <img src="media\run_prototype.png" alt="Setup 3" class="card-img">
-          <h3>Step 3: Run the Prototype</h3>
-          <p>Click the Run Prototype button to start using the gesture controls.</p>
-        </div>
-    
-        <div class="card">
-            <img src="media\select_game.png" alt="Setup 4" class="card-img">
-          <h3>Step 4: Open Any Game</h3>
-          <p>Launch any game and use gesture controls to play.</p>
-        </div>
-    
-        <div class="card">
-            <img src="media\stop_prototype.png" alt="Setup 3" class="card-img">
-          <h3>Step 5: Stop the Prototype</h3>
-          <p>Click the Stop Prototype button to end the session.</p>
-        </div>
-      </div>
-
     </section>
 
-    <footer id="contact" class="footer">
-        <div class="footer-content">
-          <div class="footer-section">
-            <h3>About Us</h3>
-            <p>We are passionate about creating immersive gaming experiences with innovative technologies like gesture control.</p>
+    <section id="download" class="mt-36 mb-36 text-center pt-10">
+        <h2 class="glitch text-4xl text-[#00ff99] mb-8" style="text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99, 0 0 30px #00ff99;">
+          Let's Get Started!
+        </h2>
+      
+        <div class="carousel-container group flex justify-center items-center mt-8 mb-20 relative w-[90%] mx-auto overflow-visible flex-wrap lg:flex-nowrap">
+          
+          <!-- Card Template -->
+          <div class="card bg-[#B056C0] border border-[#00ff99] mb-8 lg:mb-0 p-5 rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.5),0_0_10px_#00ff99] backdrop-blur-md w-full sm:w-[95%] md:w-[85%] lg:w-[80%] h-[370px] text-center transition-all duration-300 relative transform scale-[0.95] mx-0 lg:mx-[-40px] z-[1] flex flex-col justify-between hover:scale-[1.05] hover:-translate-y-2 hover:opacity-100 hover:z-[2] hover:mx-5 group/card break-words overflow-hidden">
+            <h3 class="text-2xl text-white">Step 1: Check if Python is Installed</h3>
+            <a href="https://www.python.org/downloads/" class="cta-button mt-2">Download Python</a>
+            <p class="subtitle text-white text-base leading-relaxed mt-2 opacity-100 lg:opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
+              If you don’t have Python installed, download it from the official Python installation page.
+            </p>
           </div>
-          <div class="footer-section">
-            <h3>Contact</h3>
-            <p>Email: mehnazali2004@gmail.com.com</p>
-            <p>Phone: +123 456 7890</p>
+      
+          <div class="card bg-[#B056C0] border border-[#00ff99] p-5 mb-8 lg:mb-0 rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.5),0_0_10px_#00ff99] backdrop-blur-md w-full sm:w-[95%] md:w-[85%] lg:w-[80%] h-[370px] text-center transition-all duration-300 relative transform scale-[0.95] mx-0 lg:mx-[-40px] z-[1] flex flex-col justify-between hover:scale-[1.05] hover:-translate-y-2 hover:opacity-100 hover:z-[2] hover:mx-5 group/card break-words overflow-hidden">
+            <h3 class="text-2xl text-white">Step 2: Install the Software</h3>
+            <a href="https://github.com/Mehnaz2004/Gestured-Controlled-Car-Racing-Game/releases/download/v1.0.0/GCG_App.zip" class="cta-button mt-2">Download Software</a>
+            <p class="subtitle text-white text-base leading-relaxed mt-2 opacity-100 lg:opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
+              Download the software package from GitHub Releases and extract it to a folder.
+            </p>
           </div>
-          <div class="footer-section">
-            <h3>Follow Us</h3>
-            <div class="social-links">
-              <a href="https://facebook.com" target="_blank" class="social-icon">Facebook</a>
-              <a href="https://twitter.com" target="_blank" class="social-icon">Twitter</a>
-              <a href="https://instagram.com" target="_blank" class="social-icon">Instagram</a>
+      
+          <div class="card bg-[#B056C0] border border-[#00ff99] p-5 mb-8 lg:mb-0 rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.5),0_0_10px_#00ff99] backdrop-blur-md w-full sm:w-[95%] md:w-[85%] lg:w-[80%] h-[370px] text-center transition-all duration-300 relative transform scale-[0.95] mx-0 lg:mx-[-40px] z-[1] flex flex-col justify-between hover:scale-[1.05] hover:-translate-y-2 hover:opacity-100 hover:z-[2] hover:mx-5 group/card break-words overflow-hidden">
+            <h3 class="text-2xl text-white">Step 3: Unzip the Files</h3>
+            <p class="subtitle text-white text-base leading-relaxed mt-2 opacity-100 lg:opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
+              Extract the files and make sure both app.exe and prototype1.py are in the same folder.
+            </p>
+          </div>
+      
+          <div class="card bg-[#B056C0] border border-[#00ff99] p-5 mb-8 lg:mb-0 rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.5),0_0_10px_#00ff99] backdrop-blur-md w-full sm:w-[95%] md:w-[85%] lg:w-[80%] h-[370px] text-center transition-all duration-300 relative transform scale-[0.95] mx-0 lg:mx-[-40px] z-[1] flex flex-col justify-between hover:scale-[1.05] hover:-translate-y-2 hover:opacity-100 hover:z-[2] hover:mx-5 group/card break-words overflow-hidden">
+            <h3 class="text-2xl text-white">Step 4: Launch the Application</h3>
+            <p class="subtitle text-white text-base leading-relaxed mt-2 opacity-100 lg:opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
+              Click on app.exe to run the application.
+            </p>
+          </div>
+      
+        </div>
+
+        <h2 class="glitch text-4xl text-[#00ff99] mb-8 mt-8" style="text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99, 0 0 30px #00ff99;">
+            Setup Steps!
+          </h2>
+        
+          <div class="carousel-container group flex justify-center items-center mt-8 relative w-[90%] mx-auto overflow-visible flex-wrap lg:flex-nowrap">
+            
+            <!-- Card Template -->
+            <div class="card bg-[#B056C0] border border-[#00ff99] mb-8 lg:mb-0 p-5 rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.5),0_0_10px_#00ff99] backdrop-blur-md w-full sm:w-[95%] md:w-[85%] lg:w-[80%] h-[370px] text-center transition-all duration-300 relative transform scale-[0.95] mx-0 lg:mx-[-40px] z-[1] flex flex-col justify-between hover:scale-[1.05] hover:-translate-y-2 hover:opacity-100 hover:z-[2] hover:mx-5 group/card break-words overflow-hidden">
+              <h3 class="text-2xl text-white">Step 1: Login or Signup</h3>
+              <img src="media\login.png" alt="Setup 1" class="card-img">
+              <p class="subtitle text-white text-base leading-relaxed mt-2 opacity-100 lg:opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
+                Login or create an account to begin using the application.
+              </p>
+            </div>
+        
+            <div class="card bg-[#B056C0] border border-[#00ff99] p-5 mb-8 lg:mb-0 rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.5),0_0_10px_#00ff99] backdrop-blur-md w-full sm:w-[95%] md:w-[85%] lg:w-[80%] h-[370px] text-center transition-all duration-300 relative transform scale-[0.95] mx-0 lg:mx-[-40px] z-[1] flex flex-col justify-between hover:scale-[1.05] hover:-translate-y-2 hover:opacity-100 hover:z-[2] hover:mx-5 group/card break-words overflow-hidden">
+              <h3 class="text-2xl text-white">Step 2: Save Your Gesture Mappings</h3>
+              <img src="media\save_mappings.png" alt="Setup 2" class="card-img">
+              <p class="subtitle text-white text-base leading-relaxed mt-2 opacity-100 lg:opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
+                Save your custom gesture mappings or use the default ones.
+              </p>
+            </div>
+        
+            <div class="card bg-[#B056C0] border border-[#00ff99] p-5 mb-8 lg:mb-0 rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.5),0_0_10px_#00ff99] backdrop-blur-md w-full sm:w-[95%] md:w-[85%] lg:w-[80%] h-[370px] text-center transition-all duration-300 relative transform scale-[0.95] mx-0 lg:mx-[-40px] z-[1] flex flex-col justify-between hover:scale-[1.05] hover:-translate-y-2 hover:opacity-100 hover:z-[2] hover:mx-5 group/card break-words overflow-hidden">
+              <h3 class="text-2xl text-white">Step 3: Run the Prototype            </h3>
+              <img src="media\run_prototype.png" alt="Setup 3" class="card-img">
+              <p class="subtitle text-white text-base leading-relaxed mt-2 opacity-100 lg:opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
+                Click the Run Prototype button to start using the gesture controls.
+              </p>
+            </div>
+        
+            <div class="card bg-[#B056C0] border border-[#00ff99] p-5 mb-8 lg:mb-0 rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.5),0_0_10px_#00ff99] backdrop-blur-md w-full sm:w-[95%] md:w-[85%] lg:w-[80%] h-[370px] text-center transition-all duration-300 relative transform scale-[0.95] mx-0 lg:mx-[-40px] z-[1] flex flex-col justify-between hover:scale-[1.05] hover:-translate-y-2 hover:opacity-100 hover:z-[2] hover:mx-5 group/card break-words overflow-hidden">
+              <h3 class="text-2xl text-white">Step 4: Open Any Game            </h3>
+              <img src="media\select_game.png" alt="Setup 4" class="card-img">
+              <p class="subtitle text-white text-base leading-relaxed mt-2 opacity-100 lg:opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
+                Launch any game and use gesture controls to play.
+              </p>
+            </div>
+
+            <div class="card bg-[#B056C0] border border-[#00ff99] p-5 mb-8 lg:mb-0 rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.5),0_0_10px_#00ff99] backdrop-blur-md w-full sm:w-[95%] md:w-[85%] lg:w-[80%] h-[370px] text-center transition-all duration-300 relative transform scale-[0.95] mx-0 lg:mx-[-40px] z-[1] flex flex-col justify-between hover:scale-[1.05] hover:-translate-y-2 hover:opacity-100 hover:z-[2] hover:mx-5 group/card break-words overflow-hidden">
+                <h3 class="text-2xl text-white">Step 5: Stop the Prototype                </h3>
+                <img src="media\stop_prototype.png" alt="Setup 3" class="card-img">
+                <p class="subtitle text-white text-base leading-relaxed mt-2 opacity-100 lg:opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
+                    Click the Stop Prototype button to end the session.
+                </p>
+              </div>
+        
+          </div>
+    </section>
+    
+    <footer id="contact" class="bg-[#121212] text-white text-center font-sans relative z-10 w-full pt-[50px] pb-[50px]">
+        <div class="flex justify-around flex-wrap mb-5">
+          
+          <!-- About Us -->
+          <div class="mx-5 max-w-[250px] text-center">
+            <h3 class="text-2xl mb-2 text-[#B056C0]" style="text-shadow: 0 0 10px #B056C0, 0 0 20px #B056C0;">
+              About Us
+            </h3>
+            <p class="text-base leading-relaxed text-[#dddddd]">
+              We are passionate about creating immersive gaming experiences with innovative technologies like gesture control.
+            </p>
+          </div>
+      
+          <!-- Contact -->
+          <div class="mx-5 max-w-[250px] text-center">
+            <h3 class="text-2xl mb-2 text-[#B056C0]" style="text-shadow: 0 0 10px #B056C0, 0 0 20px #B056C0;">
+              Contact
+            </h3>
+            <p class="text-base text-[#dddddd]">Email: mehnazali2004@gmail.com</p>
+            <p class="text-base text-[#dddddd]">Phone: +123 456 7890</p>
+          </div>
+      
+          <!-- Follow Us -->
+          <div class="mx-5 max-w-[250px] text-center">
+            <h3 class="text-2xl mb-2 text-[#B056C0]" style="text-shadow: 0 0 10px #B056C0, 0 0 20px #B056C0;">
+              Follow Us
+            </h3>
+            <div class="mt-2">
+              <a href="https://facebook.com" target="_blank" class="text-white m-2 no-underline text-lg uppercase font-bold tracking-wider transition-all duration-300 relative hover:text-[#B056C0]" style="text-shadow: none;">
+                Facebook
+              </a>
+              <a href="https://twitter.com" target="_blank" class="text-white m-2 no-underline text-lg uppercase font-bold tracking-wider transition-all duration-300 relative hover:text-[#B056C0]" style="text-shadow: none;">
+                Twitter
+              </a>
+              <a href="https://instagram.com" target="_blank" class="text-white m-2 no-underline text-lg uppercase font-bold tracking-wider transition-all duration-300 relative hover:text-[#B056C0]" style="text-shadow: none;">
+                Instagram
+              </a>
             </div>
           </div>
+      
         </div>
-        <div class="footer-bottom">
-          <p>&copy; 2025 Gesture Controlled Gaming. All rights reserved.</p>
+      
+        <div class="bg-[#181818] py-2 text-sm">
+          <p class="text-[#bbbbbb] m-0">&copy; 2025 Gesture Controlled Gaming. All rights reserved.</p>
         </div>
       </footer>
       
+      
+      
 
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                setTimeout(() => {
+                    menu.classList.remove('translate-x-20', 'opacity-0');
+                    menu.classList.add('translate-x-0', 'opacity-100');
+                }, 10);
+            } else {
+                menu.classList.add('translate-x-20', 'opacity-0');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 500); // Match this with your transition duration
+            }
+        }
+    </script>
+    
 </body>
 </html>
